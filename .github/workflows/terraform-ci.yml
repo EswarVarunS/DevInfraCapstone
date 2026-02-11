@@ -9,27 +9,13 @@ on:
 
 jobs:
   terraform:
-    name: Terraform Checks
     runs-on: ubuntu-latest
 
-    defaults:
-      run:
-        working-directory: project-07-terraform-ci-validation
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v3
-        with:
-          terraform_version: latest
+      - uses: hashicorp/setup-terraform@v3
 
-      - name: Terraform Init
-        run: terraform init -backend=false
-
-      - name: Terraform Format Check
-        run: terraform fmt -check -recursive
-
-      - name: Terraform Validate
-        run: terraform validate
+      - run: terraform init -backend=false
+      - run: terraform fmt -check -recursive
+      - run: terraform validate
