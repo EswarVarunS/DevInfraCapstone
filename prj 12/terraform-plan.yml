@@ -1,0 +1,31 @@
+name: Terraform Plan Validation
+ 
+on:
+  push:
+    branches:
+      - main
+ 
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+ 
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+ 
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+ 
+      - name: Terraform Init
+        working-directory: "prj12"
+        run: terraform init
+ 
+      - name: Terraform Plan
+        working-directory: "prj12"
+        run: terraform plan -out=tfplan
+ 
+      - name: Upload Plan Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: terraform-plan
+          path: "prj12/tfplan"
