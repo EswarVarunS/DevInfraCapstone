@@ -1,0 +1,39 @@
+name: GitOps Terraform Apply (prj18)
+
+on:
+  push:
+    branches:
+      - feature/*
+
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+
+    environment:
+      name: production
+
+    defaults:
+      run:
+        working-directory: prj18
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Show Files (DEBUG)
+        run: ls -R
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v2
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Validate
+        run: terraform validate
+
+      - name: Terraform Plan
+        run: terraform plan
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve
