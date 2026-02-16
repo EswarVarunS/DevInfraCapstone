@@ -7,3 +7,4 @@ resource "null_resource" "gitops_demo" {
     command = "echo GitOps deployment from prj18 successful"
   }
 }
+#new brnch yay
